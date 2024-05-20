@@ -1,0 +1,39 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "dep_tracker"
+version = "0.1.0"
+authors = [{ name = "Connor Baker", email = "connorbaker01@gmail.com" }]
+description = "Tracking dependencies on libraries in Nix builds"
+requires-python = ">=3.12" # Uses sqlite3 autocommit feature
+keywords = ["nix"]
+license.text = "BSD-3-Clause"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["ruff>=0.3.0"]
+
+[project.scripts]
+dep-tracker = "dep_tracker.__main__:main"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+preview = true
+
+[tool.ruff.lint]
+preview = true
+select = ["F", "E", "W", "I", "PL", "FURB", "LOG", "RUF", "G", "TID"]
+ignore = [
+  # Ignore functions with many arguments (I like currying)
+  "PLR0913",
+]
+
+[tool.pyright]
+include = ["./dep_tracker"]
+pythonVersion = "3.12"
+pythonPlatform = "Linux"
+typeCheckingMode = "strict"
